@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Wild</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{% static 'admin/assets/css/style.css' %}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{% static 'admin/assets/images/favicon.png' %}" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+             
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <script>swal({
+            title: "Success!",
+            text: "{{message}}",
+            icon: "success",
+            button: "OK",
+        });
+    </script>
+    
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+    <script>swal({
+            title: "Warning :)",
+            text: "{{message}}",
+            icon: "warning",
+            button: "OK",
+         
+        });
+    </script>
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+    <script>swal({
+            title: "info :)",
+            text: "{{message}}",
+            icon: "info",
+            button: "OK",
+        });
+    </script>
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <script>swal({
+            title: "error :)",
+            text: "{{message}}",
+            icon: "error",
+            button: "OK",
+        });
+    </script>
+    {% endif %}
+    {% endfor %}
+   {% endif %}
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="index.html"><h2 class="text-light">Wild Animal Detection</h2></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'admin/assets/images/logo-mini.svg' %}" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-xl-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input type="text" class="form-control bg-transparent border-0" placeholder="Search products">
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+          
+          
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                
+                </div>
+                <div class="nav-profile-text">
+                 
+                  <i class="mdi mdi-settings"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
+                <div class="p-3 text-center bg-primary">
+                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="{% static 'admin/assets/images/faces/face28.png' %}" alt="">
+                </div>
+                <div class="p-2">
+                  <h5 class="dropdown-header text-uppercase pl-2 text-dark">Admin Options</h5>
+                 
+                    <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="{% url "adminlogout" %}">
+                      <span>Log Out</span>
+                      <i class="mdi mdi-logout ml-1"></i>
+                    </a>
+                    
+                 
+                </div>
+              </div>
+            </li>
+           
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-category">Main</li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "admin_index" %}">
+                <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">User Management</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_pendingusers" %}">Pending User</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_manageusers" %}">Manage User</a></li>
+              
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "admin_upload" %}">
+                <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                <span class="menu-title">Dataset</span>
+                
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <span class="icon-bg"><i class="mdi mdi-lock menu-icon"></i></span>
+                <span class="menu-title">Model</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                 
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_train" %}">Generate Train & Test Model</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_forestalgorithm" %}">Generte Yolo Model </a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "admin_graph" %}">
+                <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                <span class="menu-title">Graph Analysis</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#feed" aria-expanded="false" aria-controls="feed">
+                <span class="icon-bg"><i class="mdi mdi-lock menu-icon"></i></span>
+                <span class="menu-title">Feed Back</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="feed">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_feedback" %}">Feedback</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_sentiments" %}"> Sentiment Analysis </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url "admin_feedbackgraph" %}">Feedback Graph Analysis </a></li>
+                 
+                </ul>
+              </div>
+            </li>
+          
+          
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <style>
+                 
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .emoji {
+                font-size: 50px;
+            }
+        </style><br>
+    
+        <h2 class="text-center">Sentiment Analysis</h2><br>
+        <table>
+         <div class="container">
+            <div class="table-responsive">      
+              <table class="table table-bordered">
+                <thead class="bg-orange">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Feedback</th>
+                        <th>Status</th>
+                        <th>Emojis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for i in back %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{i.user_details.name}}</td>
+                      <td>{{i.star_rating}}</td>
+                      <td>{{i.star_feedback}}</td>
+    
+                      <td>{% if i.sentment == 'positive' %}
+                        <p style="font-size:20px">positive</p>
+                      {% elif i.sentment == 'very positive' %}
+                        <p style="font-size:20px">very positive</p>
+                      {% elif i.sentment == 'negative' %}
+                        <p style="font-size:20px">negative</p>
+                      {% elif i.sentment == 'very negative' %}
+                        <p style="font-size:20px">very negative</p>
+                      {% else %}
+                        <p style="font-size:20px">neutral</p>
+                      {% endif %}
+                      </td>
+                      <td>
+                        {% if i.sentment == 'positive' %}
+                          <p style="font-size:30px">&#128512;</p>
+                        {% elif i.sentment == 'very positive' %}
+                          <p style="font-size:30px">&#128522;</p>
+                        {% elif i.sentment == 'negative' %}
+                          <p style="font-size:30px">&#129324;</p>
+                        {% elif i.sentment == 'very negative' %}
+                          <p style="font-size:30px">&#128545;</p>
+                          {% else %}
+                          <p style="font-size:30px">&#128528;</p>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  <!-- Repeat the <tr> and <td> for the remaining rows and columns -->
+                </tbody>
+              </table>
+            </div>
+        </div>
+        
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="footer-inner-wraper">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Codebook.in</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.codebook.in/" target="_blank">templates</a> from Codebook.in</span>
+              </div>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{% static 'admin/assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{% static 'admin/assets/vendors/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'admin/assets/vendors/jquery-circle-progress/js/circle-progress.min.js' %}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{% static 'admin/assets/js/off-canvas.js' %}"></script>
+    <script src="{% static 'admin/assets/js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'admin/assets/js/misc.js' %}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{% static 'admin/assets/js/dashboard.js' %}"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

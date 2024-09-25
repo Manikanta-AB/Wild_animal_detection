@@ -1,0 +1,15 @@
+tensorboard
+tensorboard-data-server
+tensorflow
+tensorflow-estimator
+tensorflow-intel
+tensorflow-io-gcs-filesystem
+termcolor
+twilio
+typing_extensions
+tzdata
+urllib3
+vaderSentiment
+Werkzeug
+wrapt
+yarl
